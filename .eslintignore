@@ -1,0 +1,8 @@
+/scripts
+/config
+public
+dist
+**/dist/**
+**/node_modules/**
+**/vite.config.js
+**/postcss.config.js
