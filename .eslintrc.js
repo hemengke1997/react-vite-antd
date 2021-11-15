@@ -17,6 +17,7 @@ module.exports = defineConfig({
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
+  plugins: ['prettier'],
   env: {
     browser: true,
     node: true,
@@ -26,6 +27,7 @@ module.exports = defineConfig({
   // "warn" or 1 - turn the rule on as a warning (doesn't affect exit code)
   // "error" or 2 - turn the rule on as an error (exit code will be 1)
   rules: {
+    'prettier/prettier': 'warn',
     'no-undef': 0,
     '@typescript-eslint/adjacent-overload-signatures': 0,
     '@typescript-eslint/array-type': 'error',

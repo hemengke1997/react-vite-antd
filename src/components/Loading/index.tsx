@@ -11,12 +11,13 @@ type PageLoadingType = {
   parent: HTMLElement | Element | null;
 } & React.FC<{
   visible?: boolean;
+  spin?: boolean;
 }>;
 
 Nprogress.configure({ showSpinner: false });
 
 const PageLoading: PageLoadingType = (props) => {
-  const { visible = false } = props;
+  const { visible = false, spin } = props;
 
   const timer = useRef<NodeJS.Timeout>();
 
@@ -44,7 +45,7 @@ const PageLoading: PageLoadingType = (props) => {
     };
   }, []);
 
-  return null;
+  return spin ? <div className="tw-w-full">1111111111111111111</div> : null;
 };
 
 PageLoading.instance = null;

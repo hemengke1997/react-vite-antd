@@ -40,11 +40,12 @@ export type MenuDataItem<T extends any = any> = {
   auth?: boolean;
   /** @name 路由权限 */
   access?: string;
+  /** @name 路由可否访问 */
+  unaccessible?: boolean;
   /** @name 重定向 */
   redirect?: string;
   /** @name 组件路径 */
   component?: LoadableComponent<T>;
-
   exact?: boolean | undefined;
   sensitive?: boolean | undefined;
   strict?: boolean | undefined;

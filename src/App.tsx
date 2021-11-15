@@ -5,6 +5,8 @@ import zh_CN from 'antd/lib/locale/zh_CN';
 import { BrowserRouter } from 'react-router-dom';
 import CreateRoutes from './layouts/ProLayout/renderer-react/renderRoutes';
 import routes from './routes';
+import { AccessProvider } from './context/useAccess';
+import GlobalContext from './context/useGlobalContext';
 
 import 'virtual:windi.css';
 // import 'antd/dist/antd.variable.min.css';
@@ -26,13 +28,17 @@ ConfigProvider.config({
 function App() {
   return (
     <ConfigProvider locale={zh_CN} prefixCls="nr">
-      <RecoilRoot>
-        <SWRConfig>
-          <BrowserRouter>
-            <CreateRoutes routes={routes}></CreateRoutes>
-          </BrowserRouter>
-        </SWRConfig>
-      </RecoilRoot>
+      <GlobalContext.Provider>
+        <RecoilRoot>
+          <SWRConfig>
+            <BrowserRouter>
+              <AccessProvider routes={routes}>
+                <CreateRoutes></CreateRoutes>
+              </AccessProvider>
+            </BrowserRouter>
+          </SWRConfig>
+        </RecoilRoot>
+      </GlobalContext.Provider>
     </ConfigProvider>
   );
 }

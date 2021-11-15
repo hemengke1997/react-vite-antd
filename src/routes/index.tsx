@@ -27,6 +27,7 @@ const routes: MenuDataItem[] = [
             component: lazyLoad(() => import('@/pages/User')),
             name: '2',
             exact: true,
+            access: 'canReadFoo',
           },
         ],
       },

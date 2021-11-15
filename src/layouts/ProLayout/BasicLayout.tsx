@@ -1,5 +1,5 @@
 import './BasicLayout.less';
-import type { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import React, { useContext, useEffect, useMemo } from 'react';
 import type { BreadcrumbProps as AntdBreadcrumbProps } from 'antd/lib/breadcrumb';
 import { Layout, ConfigProvider } from 'antd';
@@ -31,6 +31,11 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import { SiderMenuProps } from './components/SiderMenu/SiderMenu';
 import useCurrentMenuLayoutProps from './utils/useCurrentMenuLayoutProps';
 import useControlledState from '@/hooks/useControlledState';
+import { AccessContext, traverseModifyRoutes } from '@/context/useAccess';
+import { WithExceptionOpChildren } from './components/WithExceptionChildren';
+import getLayoutRenderConfig from './utils/getLayoutRenderConfig';
+import PageLoading from '@/components/Loading';
+import useGlobalContext from '@/context/useGlobalContext';
 
 export type LayoutBreadcrumbProps = {
   minLength?: number;
@@ -81,7 +86,12 @@ export type BasicLayoutProps = Partial<RouterTypes<Route>> &
     /** @name 水印的相关配置 */
     waterMarkProps?: WaterMarkProps;
 
-    ErrorBoundary?: any;
+    userConfig?: {
+      notFound?: React.ReactNode;
+      unAccessible?: React.ReactNode;
+    };
+
+    loading?: boolean;
   };
 
 /**
@@ -214,16 +224,35 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     siderWidth = 208,
     menu,
     menuDataRender,
+    userConfig,
+    loading,
   } = props || {};
   const context = useContext(ConfigProvider.ConfigContext);
   const prefixCls = props.prefixCls ?? context.getPrefixCls('pro');
+
+  const { initialState } = useGlobalContext.usePicker(['initialState']);
+
+  const accessContext = React.useContext(AccessContext);
 
   const menuInfoData = useMemo(
     () => getMenuData(route?.routes || [], menuDataRender),
     [route, menuDataRender],
   );
 
-  const { breadcrumb = {}, breadcrumbMap, menuData = [] } = menuInfoData || {};
+  const {
+    breadcrumb = {},
+    breadcrumbMap,
+    menuData: menuDataT = [],
+  } = menuInfoData || {};
+
+  const menuData = useMemo(() => {
+    return traverseModifyRoutes(menuDataT, accessContext);
+  }, [menuDataT, accessContext]);
+
+  const currentPathConfig = useMemo(() => {
+    // 动态路由匹配
+    return getMatchMenu(location.pathname!, menuDataT).pop();
+  }, [location?.pathname, menuDataT]);
 
   const matchMenus = useMemo(() => {
     return getMatchMenu(location.pathname || '/', menuData || [], true);
@@ -265,6 +294,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       ...currentMenuLayoutProps,
       breadcrumb,
       menu,
+      ...getLayoutRenderConfig(currentPathConfig as any),
     },
     ['className', 'style', 'breadcrumbRender'],
   );
@@ -366,34 +396,44 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
           currentMenu,
         }}
       >
-        {props.pure ? (
-          children
-        ) : (
-          <div className={className}>
-            <Layout
-              style={{
-                minHeight: '100%',
-                ...style,
-              }}
-            >
-              {siderMenuDom}
-              <div
-                style={genLayoutStyle}
-                className={context.getPrefixCls('layout')}
+        <WithExceptionOpChildren
+          notFound={userConfig?.notFound}
+          unAccessible={userConfig?.unAccessible}
+          currentPathConfig={currentPathConfig}
+        >
+          {props.pure ? (
+            children
+          ) : (
+            <div className={className}>
+              <Layout
+                style={{
+                  minHeight: '100%',
+                  ...style,
+                }}
               >
-                {headerDom}
-                <ErrorBoundary>
-                  <Layout.Content
-                    className={contentClassName}
-                    style={contentStyle}
-                  >
-                    {children}
-                  </Layout.Content>
-                </ErrorBoundary>
-              </div>
-            </Layout>
-          </div>
-        )}
+                {siderMenuDom}
+                <div
+                  style={genLayoutStyle}
+                  className={context.getPrefixCls('layout')}
+                >
+                  {headerDom}
+                  {loading || initialState.loading ? (
+                    <PageLoading spin />
+                  ) : (
+                    <ErrorBoundary>
+                      <Layout.Content
+                        className={contentClassName}
+                        style={contentStyle}
+                      >
+                        {children}
+                      </Layout.Content>
+                    </ErrorBoundary>
+                  )}
+                </div>
+              </Layout>
+            </div>
+          )}
+        </WithExceptionOpChildren>
       </RouteContext.Provider>
     </MenuCounter.Provider>
   );

@@ -62,6 +62,7 @@ export type BaseMenuProps = {
       menuProps: BaseMenuProps,
     ) => React.ReactNode
   >;
+  postMenuData?: (menusData?: MenuDataItem[]) => MenuDataItem[];
 } & Partial<RouterTypes<Route>> &
   Omit<MenuProps, 'openKeys' | 'onOpenChange' | 'title' | 'theme'> &
   Partial<PureSettings>;
@@ -367,7 +368,11 @@ const BaseMenu: React.FC<BaseMenuProps & PrivateSiderMenuProps> = (props) => {
     defaultOpenKeysRef.current = matchMenuKeys;
   }
 
-  if (menuData && menuData?.length < 1) {
+  const finallyData = props.postMenuData
+    ? props.postMenuData(menuData)
+    : menuData;
+
+  if (finallyData && finallyData?.length < 1) {
     return null;
   }
 
@@ -385,7 +390,7 @@ const BaseMenu: React.FC<BaseMenuProps & PrivateSiderMenuProps> = (props) => {
       onOpenChange={setOpenKeys}
       {...props.menuProps}
     >
-      {menuUtils.getNavMenuItems(menuData, false)}
+      {menuUtils.getNavMenuItems(finallyData, false)}
     </Menu>
   );
 };

@@ -128,9 +128,9 @@ export function renderRoutes(opts: IOpts, switchProps = {}) {
   ) : null;
 }
 
-function CreateRoutes(props: { routes: Route[]; switchProps?: SwitchProps }) {
+function CreateRoutes(props: { routes?: Route[]; switchProps?: SwitchProps }) {
   const { routes, switchProps } = props;
-  return renderRoutes({ routes }, switchProps);
+  return renderRoutes({ routes: routes! }, switchProps);
 }
 
 export default React.memo(CreateRoutes);

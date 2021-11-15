@@ -4,7 +4,7 @@ export function clearMenuItem(menusData: MenuDataItem[]): MenuDataItem[] {
   return menusData
     .map((item) => {
       const finalItem = { ...item };
-      if (!finalItem.name || finalItem.hideInMenu) {
+      if (!finalItem.name || finalItem.hideInMenu || finalItem.unaccessible) {
         return null;
       }
 
