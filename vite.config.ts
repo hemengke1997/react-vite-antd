@@ -1,8 +1,7 @@
-import path from 'node:path/posix';
-import { ConfigEnv, UserConfig } from 'vite';
+import path from 'path';
+import type { ConfigEnv, UserConfig } from 'vite';
 import { PORT, VITE_BASE_PATH } from './config/constant';
 import { createVitePlugins } from './config/vite/plugins';
-import { themeVariables } from './config/theme';
 import { createProxy } from './config/vite/proxy';
 import dayjs from 'dayjs';
 import package_ from './package.json';
@@ -23,22 +22,26 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   return {
     base: VITE_BASE_PATH,
     plugins: createVitePlugins(isBuild),
-    css: {
-      preprocessorOptions: {
-        less: {
-          javascriptEnabled: true,
-          modifyVars: themeVariables,
-        },
-      },
-    },
     resolve: {
       alias: [
-        { find: '@', replacement: path.resolve(__dirname, 'src') },
+        { find: '@', replacement: path.resolve(__dirname, './src') },
         {
           find: 'config',
           replacement: path.resolve(__dirname, './config'),
         },
+        {
+          find: /^~/,
+          replacement: `${path.resolve(__dirname, './node_modules')}/`,
+        },
       ],
+    },
+    css: {
+      preprocessorOptions: {
+        less: {
+          javascriptEnabled: true,
+          // modifyVars: themeVariables,
+        },
+      },
     },
     server: {
       host: true,

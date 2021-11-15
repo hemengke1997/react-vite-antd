@@ -1,7 +1,6 @@
 {
   "recommendations": [
-    "bradlc.vscode-tailwindcss",
-    "stylelint.vscode-stylelint",
+    "voorjaar.windicss-intellisense",
     "redjue.git-commit-plugin",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode"

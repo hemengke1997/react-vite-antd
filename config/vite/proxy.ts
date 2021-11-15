@@ -2,11 +2,11 @@ import { ProxyOptions } from 'vite';
 
 type ProxyTargetList = Record<string, ProxyOptions>;
 
-const httpsRE = /^https:\/\//;
+// const httpsRE = /^https:\/\//;
 
-const isHttps = (target: string) => {
-  return httpsRE.test(target);
-};
+// const isHttps = (target: string) => {
+//   return httpsRE.test(target);
+// };
 
 export function createProxy() {
   const ProxyList: ProxyTargetList = {

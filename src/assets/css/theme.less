@@ -1,1 +1,84 @@
+@import '~antd/lib/style/color/colorPalette.less';
+
+// 需要重写antd的样式时，在这里覆盖
+
+// Color
 @primary-color: hsla(234, 100%, 72%, 1);
+@success-color: hsla(148, 100%, 35%, 1);
+@processing-color: @primary-color;
+@error-color: hsla(10, 100%, 55%, 1);
+@highlight-color: hsla(10, 100%, 55%, 1);
+@warning-color: hsla(43, 100%, 50%, 1);
+@normal-color: #d9d9d9;
+@white: #fff;
+
+@success-hover-color: hsla(148, 100%, 35%, 0.8);
+@success-active-color: hsla(148, 100%, 27%, 1);
+
+// BackTop
+@back-top-bg: color(~`colorPalette('@{primary-color}', 4) `);
+@back-top-hover-bg: color(~`colorPalette('@{primary-color}', 5) `);
+
+// Radius
+@border-radius-base: 4px;
+
+// Tooltip
+@tooltip-bg: @white;
+@tooltip-color: @text-color;
+
+// Text
+@text-color: #181a1a; // 一级文本
+@text-color-secondary: #3d4242; // 二级文本
+@text-color-third: #626a6a; // 三级文本
+@text-color-fourth: #889191; // 四级文本
+@text-color-fifth: #afb6b6; // 五级文本（失效、暗提示）
+@text-selection-bg: hsla(234, 100%, 84%, 1);
+
+// Disabled states
+@disabled-color: #626a6a;
+@disabled-bg: #eceeee;
+
+// Background color for `<body>`
+@body-background: #fff;
+
+// Base background color for most components
+@component-background: #fff;
+
+// Input
+@input-disabled-color: @disabled-color;
+
+// Link
+@link-color: hsla(208, 100%, 50%, 1);
+@link-hover-color: hsla(208, 100%, 50%, 0.8);
+@link-active-color: hsla(208, 100%, 42%, 1);
+@link-bg-color: fade(@link-color, 10%);
+@link-hover-bg-color: fade(@link-color, 6%);
+@link-decoration: none;
+@link-hover-decoration: none;
+@link-focus-decoration: none;
+@link-focus-outline: 0;
+
+// Table
+@table-header-bg: hsla(180, 16%, 94%, 1);
+@table-header-sort-active-bg: hsla(180, 9%, 89%, 1);
+@table-selected-row-hover-bg: @table-header-sort-active-bg;
+@table-header-sort-bg: @table-header-sort-active-bg;
+@table-header-cell-split-color: @table-header-sort-active-bg;
+@table-body-row-odd-bg-color: @white;
+@table-body-row-even-bg-color: hsla(180, 23%, 97%, 1);
+@table-row-odd-hover-bg: hsla(180, 23%, 97%, 1);
+@table-row-even-hover-bg: hsla(180, 16%, 94%, 1);
+
+// Empty
+@empty-color: fade(#000, 50%);
+
+// Layout
+@layout-sider-background-light: hsla(180, 23%, 97%, 1);
+
+// Border Color
+@border-color-base: #e1e6e6;
+
+// Font
+@font-size-base: 14px;
+@font-size-lg: @font-size-base + 2px;
+@font-size-sm: 12px;
