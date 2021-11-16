@@ -109,28 +109,37 @@ const headerRender = (
   if (props.headerRender === false || props.pure) {
     return null;
   }
-  return <HeaderView matchMenuKeys={matchMenuKeys} {...props} />;
+
+  const clearMenuData = clearMenuItem(props.menuData || []);
+  if (clearMenuData && clearMenuData?.length < 1) {
+    return null;
+  }
+
+  return (
+    <HeaderView
+      matchMenuKeys={matchMenuKeys}
+      {...props}
+      menuData={clearMenuData}
+    />
+  );
 };
 
 const renderSiderMenu = (
   props: BasicLayoutProps,
   matchMenuKeys: string[],
 ): React.ReactNode => {
-  const { menuRender, openKeys } = props;
+  const { menuRender } = props;
   if (props.menuRender === false || props.pure) {
     return null;
   }
   let { menuData } = props;
 
   /** 如果是分割菜单模式，需要专门实现一下 */
-  if (openKeys !== false) {
-    const [key] = matchMenuKeys;
-    if (key) {
-      menuData =
-        props.menuData?.find((item) => item.key === key)?.children || [];
-    } else {
-      menuData = [];
-    }
+  const [key] = matchMenuKeys;
+  if (key) {
+    menuData = props.menuData?.find((item) => item.key === key)?.children || [];
+  } else {
+    menuData = [];
   }
   // 这里走了可以少一次循环
   const clearMenuData = clearMenuItem(menuData || []);

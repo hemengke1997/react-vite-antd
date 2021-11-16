@@ -20,7 +20,6 @@ import MenuContext from '../../context/MenuContext';
 import useMountControlledState from '@/hooks/useMountControlledState';
 import getOpenKeysFromMenuData from '../../utils/getOpenKeysFromMenuData';
 import type { PrivateSiderMenuProps } from '../SiderMenu/SiderMenu';
-import { Link } from 'react-router-dom';
 
 // todo
 export type MenuMode =
@@ -157,6 +156,9 @@ class MenuUtil {
         disabled={item.disabled}
         key={item.path}
         onClick={item.onTitleClick}
+        style={{
+          cursor: this.props.mode === 'horizontal' ? 'default' : 'pointer',
+        }}
       >
         {this.getMenuItemPath(item, isChildren)}
       </Menu.Item>
@@ -181,12 +183,10 @@ class MenuUtil {
     const { prefixCls } = this.props;
     const icon = isChildren ? null : getIcon(item.icon, iconPrefixes);
     let defaultItem = (
-      <Link to={item.path!} target={item.target}>
-        <span className={`${prefixCls}-menu-item`}>
-          {icon}
-          <span className={`${prefixCls}-menu-item-title`}>{name}</span>
-        </span>
-      </Link>
+      <span className={`${prefixCls}-menu-item`}>
+        {icon}
+        <span className={`${prefixCls}-menu-item-title`}>{name}</span>
+      </span>
     );
 
     const isHttpUrl = isUrl(itemPath);
@@ -194,15 +194,13 @@ class MenuUtil {
     // Is it a http link
     if (isHttpUrl) {
       defaultItem = (
-        <a href={itemPath} target={item.target}>
-          <span
-            title={name}
-            className={`${prefixCls}-menu-item ${prefixCls}-menu-item-link`}
-          >
-            {icon}
-            <span className={`${prefixCls}-menu-item-title`}>{name}</span>
-          </span>
-        </a>
+        <span
+          title={name}
+          className={`${prefixCls}-menu-item ${prefixCls}-menu-item-link`}
+        >
+          {icon}
+          <span className={`${prefixCls}-menu-item-title`}>{name}</span>
+        </span>
       );
     }
 

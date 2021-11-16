@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import AccessContext, {
   AccessInstance as AccessInstanceType,
-} from './contextContent';
+} from './accessContext';
 
 export type AccessInstance = AccessInstanceType;
 

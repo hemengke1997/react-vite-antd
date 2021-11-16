@@ -9,6 +9,7 @@ import './index.less';
 import type { WithFalse } from '../../typings';
 import BaseMenu, { BaseMenuProps } from '../BaseMenu';
 import MenuContext from '../../context/MenuContext';
+import { Link } from 'react-router-dom';
 const { Sider } = Layout;
 
 export type SiderMenuProps = {
@@ -90,6 +91,19 @@ const SiderMenu: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (props) => {
         width: '100%',
       }}
       className={`${baseClassName}-menu`}
+      menuItemRender={(menuItemProps, defaultDom) => {
+        if (menuItemProps.isUrl) {
+          return defaultDom;
+        }
+        if (menuItemProps.path && location.pathname !== menuItemProps.path) {
+          return (
+            <Link to={menuItemProps.path} target={menuItemProps.target}>
+              {defaultDom}
+            </Link>
+          );
+        }
+        return defaultDom;
+      }}
     />
   );
 

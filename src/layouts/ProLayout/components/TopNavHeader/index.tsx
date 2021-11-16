@@ -7,6 +7,9 @@ import './index.less';
 import BaseMenu from '../BaseMenu';
 import { SiderMenuProps, PrivateSiderMenuProps } from '../SiderMenu/SiderMenu';
 import { HeaderViewProps } from '../HeaderView';
+import { Popover, Space, Typography } from 'antd';
+import { MenuDataItem } from '../../typings';
+import { Link } from 'react-router-dom';
 
 export type TopNavHeaderProps = HeaderViewProps &
   SiderMenuProps &
@@ -53,8 +56,6 @@ const defaultRenderLogoAndTitle = (
 
 /**
  * 抽离出来是为了防止 rightSize 经常改变导致菜单 render
- *
- * @param param0
  */
 const RightContent: React.FC<TopNavHeaderProps> = ({
   rightContentRender,
@@ -91,6 +92,41 @@ const RightContent: React.FC<TopNavHeaderProps> = ({
   );
 };
 
+type OverlayProps = {
+  routes: MenuDataItem[];
+};
+
+const Overlay: React.FC<OverlayProps> = React.memo((props) => {
+  const { routes } = props;
+
+  return (
+    <Space size="large" align="start">
+      {routes.map((item, index) =>
+        item.children ? (
+          <Space direction="vertical" key={index}>
+            <Space>
+              <Typography.Text strong className="tw-text-base">
+                {item.name}
+              </Typography.Text>
+            </Space>
+            {item.children
+              ?.filter((route) => route.name)
+              .map((link, i) => (
+                <Link to={link.path!} key={i}>
+                  {link.name}
+                </Link>
+              ))}
+          </Space>
+        ) : (
+          <Link to={item.path!} key={index}>
+            {item.name}
+          </Link>
+        ),
+      )}
+    </Space>
+  );
+});
+
 const TopNavHeader: React.FC<TopNavHeaderProps> = (props) => {
   const ref = useRef(null);
   const {
@@ -124,7 +160,28 @@ const TopNavHeader: React.FC<TopNavHeaderProps> = (props) => {
           </div>
         )}
         <div style={{ flex: 1 }} className={`${prefixCls}-menu`}>
-          <BaseMenu {...props} {...props.menuProps} />
+          <BaseMenu
+            {...props}
+            {...props.menuProps}
+            menuItemRender={(renderItemProps, defaultDom) => {
+              return renderItemProps.routes ? (
+                <Popover
+                  overlayClassName={`${prefixCls}-menu-popover`}
+                  transitionName="nr-slide-up"
+                  mouseEnterDelay={0}
+                  align={{
+                    ignoreShake: true,
+                    offset: [0, 8],
+                  }}
+                  content={<Overlay routes={renderItemProps.routes} />}
+                >
+                  <div>{defaultDom}</div>
+                </Popover>
+              ) : (
+                <Link to={renderItemProps.path!}>{defaultDom}</Link>
+              );
+            }}
+          />
         </div>
         {rightContentRender && (
           <RightContent rightContentRender={rightContentRender} {...props} />

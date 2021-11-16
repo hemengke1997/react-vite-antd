@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Nprogress from 'nprogress';
 
 import 'nprogress/nprogress.css';
+import SpinLoadingIcon from './SpinLoadingIcon';
 
 type PageLoadingType = {
   show: () => void;
@@ -45,7 +46,11 @@ const PageLoading: PageLoadingType = (props) => {
     };
   }, []);
 
-  return spin ? <div className="tw-w-full">1111111111111111111</div> : null;
+  return spin ? (
+    <div className="tw-w-full tw-h-full">
+      <SpinLoadingIcon />
+    </div>
+  ) : null;
 };
 
 PageLoading.instance = null;

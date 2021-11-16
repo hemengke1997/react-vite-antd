@@ -14,7 +14,7 @@ function useGlobalContext() {
   }, []);
 
   const [initialState, setInitialState] = useState<InitialStateType>({
-    loading: true,
+    loading: false,
     userInfo: {},
     accessInfo: [],
   });

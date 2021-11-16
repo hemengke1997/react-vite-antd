@@ -18,6 +18,7 @@ export function clearMenuItem(menusData: MenuDataItem[]): MenuDataItem[] {
           return {
             ...item,
             children: clearMenuItem(finalItem.children),
+            routes: clearMenuItem(finalItem.routes || []),
           };
         }
         // children 为空就直接删掉

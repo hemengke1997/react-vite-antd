@@ -1,6 +1,6 @@
 import { SWRConfig } from 'swr';
 import { RecoilRoot } from 'recoil';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, message, notification, Spin } from 'antd';
 import zh_CN from 'antd/lib/locale/zh_CN';
 import { BrowserRouter } from 'react-router-dom';
 import CreateRoutes from './layouts/ProLayout/renderer-react/renderRoutes';
@@ -11,7 +11,20 @@ import GlobalContext from './context/useGlobalContext';
 import 'virtual:windi.css';
 // import 'antd/dist/antd.variable.min.css';
 import '../modified.css';
-// import './assets/css/index.less';
+import './assets/css/index.less';
+import SpinLoadingIcon from './components/Loading/SpinLoadingIcon';
+import defaultSettings from './layouts/ProLayout/defaultSettings';
+
+message.config({
+  maxCount: 3,
+  top: defaultSettings.headerHeight,
+});
+
+notification.config({
+  maxCount: 3,
+});
+
+Spin.setDefaultIndicator(<SpinLoadingIcon />);
 
 ConfigProvider.config({
   theme: {
@@ -25,12 +38,19 @@ ConfigProvider.config({
   prefixCls: 'nr',
 });
 
+const swrConfig: React.ComponentProps<typeof SWRConfig>['value'] = {
+  revalidateOnFocus: false,
+  revalidateOnReconnect: false,
+  shouldRetryOnError: false,
+  dedupingInterval: 3000,
+};
+
 function App() {
   return (
     <ConfigProvider locale={zh_CN} prefixCls="nr">
       <GlobalContext.Provider>
         <RecoilRoot>
-          <SWRConfig>
+          <SWRConfig value={swrConfig}>
             <BrowserRouter>
               <AccessProvider routes={routes}>
                 <CreateRoutes></CreateRoutes>

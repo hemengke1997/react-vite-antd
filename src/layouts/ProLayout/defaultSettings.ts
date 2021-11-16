@@ -43,11 +43,10 @@ const defaultSettings: ProSettings = {
   fixedHeader: true,
   fixSiderbar: true,
   headerHeight: 64,
-  title: 'Ant Design Pro',
+  title: '网站title',
   iconfontUrl: '',
-  // menu: {
-  //   defaultOpenAll: true,
-  //   ignoreFlatMenu: true,
-  // },
+  menu: {
+    autoClose: false,
+  },
 };
 export default defaultSettings;

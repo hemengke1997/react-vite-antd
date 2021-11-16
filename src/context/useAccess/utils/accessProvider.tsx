@@ -2,7 +2,7 @@ import useGlobalContext from '@/context/useGlobalContext';
 import { MenuDataItem } from '@/layouts/ProLayout/typings';
 import React, { useMemo } from 'react';
 import accessFactory from '../access';
-import AccessContext, { AccessInstance } from './contextContent';
+import AccessContext, { AccessInstance } from './accessContext';
 import { traverseModifyRoutes } from './traverseModifyRoutes';
 
 type Routes = MenuDataItem[];

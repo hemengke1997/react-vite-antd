@@ -114,16 +114,17 @@ function formatter(
   if (!data || !Array.isArray(data)) {
     return [];
   }
+
   return data
     .filter((item) => {
       if (!item) return false;
       if (item.path === '*') return true;
+      if (item.redirect) return false;
       if (item.routes || item.children) return true;
       if (item.path) return true;
-      // 重定向
-      if (item.redirect) return false;
       return false;
     })
+
     .map((item = { path: '/' }) => {
       const path = mergePath(item.path, parent ? parent.path : '/');
 
@@ -183,6 +184,7 @@ export default (
   menuDataRender?: (menuData: MenuDataItem[]) => MenuDataItem[],
 ) => {
   const { menuData, breadcrumb } = transformRoute(routes);
+
   if (!menuDataRender) {
     return {
       breadcrumb: fromEntries(breadcrumb),

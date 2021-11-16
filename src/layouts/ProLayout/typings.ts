@@ -5,7 +5,7 @@ import type { RouteComponentProps, match } from 'react-router-dom';
 
 export type MenuDataItem<T extends any = any> = {
   /** @name 子菜单 */
-  routes?: Route[];
+  routes?: MenuDataItem[];
   children?: MenuDataItem[];
   /** @name 在菜单中隐藏子节点 */
   hideChildrenInMenu?: boolean;
