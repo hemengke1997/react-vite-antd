@@ -26,7 +26,7 @@ import { clearMenuItem } from './utils/clearMenuItem';
 import getMatchMenu from './utils/getMatchMenus';
 import HeaderView, { HeaderViewProps } from './components/HeaderView';
 import { BaseMenuProps } from './components/BaseMenu';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { SiderMenuProps } from './components/SiderMenu/SiderMenu';
 import useCurrentMenuLayoutProps from './utils/useCurrentMenuLayoutProps';

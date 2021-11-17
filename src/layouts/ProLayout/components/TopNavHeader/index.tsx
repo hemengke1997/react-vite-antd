@@ -112,13 +112,13 @@ const Overlay: React.FC<OverlayProps> = React.memo((props) => {
             {item.children
               ?.filter((route) => route.name)
               .map((link, i) => (
-                <Link to={link.path!} key={i}>
+                <Link to={link.path!} key={i} target={item.target}>
                   {link.name}
                 </Link>
               ))}
           </Space>
         ) : (
-          <Link to={item.path!} key={index}>
+          <Link to={item.path!} key={index} target={item.target}>
             {item.name}
           </Link>
         ),

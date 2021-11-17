@@ -5,6 +5,8 @@ export const BASE_URL = {
   beta: '/beta',
   release: '/release',
 };
+// 开发host
+export const HOST = 'dev.e.newrank.cn';
 // 开发端口
 export const PORT = 1314;
 // 基本路径

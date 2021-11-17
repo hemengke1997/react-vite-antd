@@ -1,0 +1,47 @@
+.labelBorderd {
+  :global {
+    .ant-form-item {
+      flex-wrap: nowrap;
+      margin-bottom: var(--md);
+    }
+
+    .ant-form-item-label {
+      flex: none;
+    }
+
+    .ant-form-item-label > label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 77px;
+      // 五个汉字的长度
+      padding: 0 var(--xs);
+      font-size: var(--font-size-sm);
+      border: 1px solid var(--border-color-base);
+      border-right: 0;
+      border-top-left-radius: var(--border-radius-base);
+      border-bottom-left-radius: var(--border-radius-base);
+
+      &::after {
+        width: 0;
+        margin: 0;
+        content: none;
+      }
+    }
+
+    .ant-form-item-label + .ant-form-item-control {
+      .ant-select-selector,
+      .ant-picker,
+      .ant-input-affix-wrapper,
+      .ant-input-number,
+      .ant-input {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      .ant-input-wrapper.ant-input-group > .ant-input-affix-wrapper {
+        border-radius: 0;
+      }
+    }
+  }
+}

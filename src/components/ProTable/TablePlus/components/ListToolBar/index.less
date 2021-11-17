@@ -1,0 +1,54 @@
+.ant-pro-table-list-toolbar {
+  overflow-x: auto;
+  overflow-y: hidden;
+  line-height: 1;
+
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--md) 0;
+  }
+
+  &-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--heading-color);
+    font-weight: 500;
+    font-size: var(--font-size-lg);
+  }
+
+  &-search:not(:last-child) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &-extra-line {
+    margin-bottom: var(--md);
+  }
+}
+
+@media (max-width: 575px) {
+  .ant-pro-table-list-toolbar {
+    &-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &-left {
+      margin-bottom: 16px;
+    }
+  }
+}

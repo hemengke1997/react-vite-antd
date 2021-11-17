@@ -4,7 +4,7 @@ import type { PrivateSiderMenuProps, SiderMenuProps } from './SiderMenu';
 import SiderMenu from './SiderMenu';
 import MenuContext from '../../context/MenuContext';
 import getFlatMenu from '../../utils/getFlatMenu';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import './index.less';
 
 const SiderMenuWrapper: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (

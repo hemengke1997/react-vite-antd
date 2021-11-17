@@ -1,6 +1,6 @@
 import type { MenuDataItem, Route } from '../typings';
 import memoizeOne from 'memoize-one';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import { mergePath } from '../renderer-react/renderRoutes';
 import sha265 from './sha265';
 

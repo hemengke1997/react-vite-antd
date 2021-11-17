@@ -1,6 +1,6 @@
 import type { DependencyList } from 'react';
 import { useEffect, useRef } from 'react';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 
 export const isDeepEqual: (a: any, b: any) => boolean = isEqual;
 

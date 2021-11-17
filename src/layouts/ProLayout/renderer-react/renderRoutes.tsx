@@ -94,6 +94,7 @@ function getRouteElement({ route, index, opts }: IGetRouteElementOpts) {
     strict: route.strict,
     path: route.path,
   };
+
   if (route.redirect) {
     return <Redirect {...routeProps} from={route.path} to={route.redirect} />;
   }
@@ -130,6 +131,7 @@ export function renderRoutes(opts: IOpts, switchProps = {}) {
 
 function CreateRoutes(props: { routes?: Route[]; switchProps?: SwitchProps }) {
   const { routes, switchProps } = props;
+
   return renderRoutes({ routes: routes! }, switchProps);
 }
 

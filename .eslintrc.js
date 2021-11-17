@@ -82,7 +82,6 @@ module.exports = defineConfig({
     '@typescript-eslint/no-extra-semi': 0,
     '@typescript-eslint/no-extraneous-class': 0,
     '@typescript-eslint/no-floating-promises': 0,
-    '@typescript-eslint/no-for-in-array': 'error',
     '@typescript-eslint/no-implicit-any-catch': 0,
     'no-implied-eval': 'off',
     '@typescript-eslint/no-implied-eval': 0,

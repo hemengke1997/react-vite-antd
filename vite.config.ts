@@ -1,6 +1,6 @@
 import path from 'path';
 import type { ConfigEnv, UserConfig } from 'vite';
-import { PORT, VITE_BASE_PATH } from './config/constant';
+import { HOST, PORT, VITE_BASE_PATH } from './config/constant';
 import { createVitePlugins } from './config/vite/plugins';
 import { createProxy } from './config/vite/proxy';
 import dayjs from 'dayjs';
@@ -44,7 +44,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       },
     },
     server: {
-      host: true,
+      host: HOST,
       port: PORT,
       proxy: createProxy(),
     },
