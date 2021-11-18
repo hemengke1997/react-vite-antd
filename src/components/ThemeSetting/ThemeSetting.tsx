@@ -2,9 +2,9 @@ import ProDrawer from '../ProDrawer';
 import { ColorChangeHandler, SketchPicker } from 'react-color';
 import { useEffect, useState } from 'react';
 import { Button, ConfigProvider, Divider } from 'antd';
-import useControlledState from '@/hooks/useControlledState';
-import { themeName } from '@/utils/setting';
-import { Theme } from 'antd/es/config-provider/context';
+import { themeName, theme as defaultTheme } from '@/utils/setting';
+import type { Theme } from 'antd/es/config-provider/context';
+import useMountControlledState from '@/hooks/useMountControlledState';
 import styles from './index.module.less';
 
 type ThemeCompProps = {
@@ -18,10 +18,13 @@ const ThemeComp: React.FC<ThemeCompProps> = (props) => {
 
   const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
 
-  const [color, setColor] = useControlledState<string>('', {
-    defaultValue: defaultColor,
-    onChange: onColorChange,
-  });
+  const [color, setColor] = useMountControlledState<string>(
+    defaultColor || '',
+    {
+      defaultValue: defaultColor,
+      onChange: onColorChange,
+    },
+  );
 
   const handleClose = () => {
     setDisplayColorPicker(false);
@@ -88,8 +91,6 @@ const ThemeSetting: React.FC<Feedback.FeedbackProps> = (props) => {
   const setTheme = (color: Partial<Record<keyof Theme, string>>) => {
     const prevColors = getTheme();
 
-    console.log(prevColors, 'prevColors', color);
-
     localStorage.setItem(
       themeName,
       JSON.stringify({
@@ -106,7 +107,7 @@ const ThemeSetting: React.FC<Feedback.FeedbackProps> = (props) => {
     });
   };
 
-  useEffect(() => {
+  const initTheme = () => {
     const titleList: Partial<Record<keyof Theme, string>>[] = [
       {
         primaryColor: '主题色',
@@ -137,6 +138,20 @@ const ThemeSetting: React.FC<Feedback.FeedbackProps> = (props) => {
     });
 
     setThemeList(t);
+  };
+
+  const reset = () => {
+    localStorage.setItem(themeName, JSON.stringify(defaultTheme));
+
+    ConfigProvider.config({
+      theme: defaultTheme,
+    });
+
+    initTheme();
+  };
+
+  useEffect(() => {
+    initTheme();
   }, []);
 
   return (
@@ -145,7 +160,7 @@ const ThemeSetting: React.FC<Feedback.FeedbackProps> = (props) => {
       onClose={() => setVisible(false)}
       footer={
         <div>
-          <Button>重置</Button>
+          <Button onClick={reset}>重置</Button>
         </div>
       }
     >

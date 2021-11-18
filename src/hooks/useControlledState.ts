@@ -25,7 +25,7 @@ export default function useControlledState<T, R = T>(
 ): [R, (value: T | ((prevState: T) => T)) => void] {
   const { defaultValue, value, onChange, postState } = option || {};
 
-  const [innerValue, setInnerValue] = React.useState<T>(() => {
+  const getInitVal = () => {
     if (value !== undefined) {
       return value;
     }
@@ -37,9 +37,12 @@ export default function useControlledState<T, R = T>(
     return typeof initialState === 'function'
       ? (initialState as any)()
       : initialState;
-  });
+  };
 
-  let mergedValue = value !== undefined ? value : innerValue;
+  const [innerValue, setInnerValue] = React.useState<T>(getInitVal);
+
+  // to fix hot-update
+  let mergedValue = innerValue !== undefined ? innerValue : getInitVal();
 
   if (postState) {
     mergedValue = postState(mergedValue);
