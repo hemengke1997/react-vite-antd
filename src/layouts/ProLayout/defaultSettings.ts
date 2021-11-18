@@ -47,6 +47,7 @@ const defaultSettings: ProSettings = {
   iconfontUrl: '',
   menu: {
     autoClose: false,
+    ignoreFlatMenu: true,
   },
 };
 export default defaultSettings;

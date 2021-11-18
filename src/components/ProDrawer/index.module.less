@@ -1,0 +1,25 @@
+.handler {
+  position: absolute;
+  top: 4px;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  font-size: 16px;
+  text-align: center;
+  background: var(--ant-primary-color);
+  border-radius: var(--border-radius-base) 0 0 var(--border-radius-base);
+  transform: translateX(-100%);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.drawer {
+  :global {
+    .ant-drawer-footer {
+      padding: var(--md) var(--lg);
+    }
+  }
+}

@@ -151,16 +151,6 @@ const SiderMenu: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (props) => {
         }}
         width={siderWidth}
         className={siderClassName}
-        onMouseEnter={() => {
-          if (propsCollapsed) {
-            setFixedCollapse(false);
-          }
-        }}
-        onMouseLeave={() => {
-          if (propsCollapsed) {
-            setFixedCollapse(true);
-          }
-        }}
       >
         {extraDom && (
           <div
@@ -175,6 +165,16 @@ const SiderMenu: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (props) => {
             overflowY: 'auto',
             overflowX: 'hidden',
           }}
+          onMouseEnter={() => {
+            if (propsCollapsed) {
+              setFixedCollapse(false);
+            }
+          }}
+          onMouseLeave={() => {
+            if (propsCollapsed) {
+              setFixedCollapse(true);
+            }
+          }}
         >
           {menuRenderDom}
         </div>
@@ -188,7 +188,20 @@ const SiderMenu: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (props) => {
             mode="inline"
           >
             {(links || []).map((node, index) => (
-              <Menu.Item className={`${baseClassName}-link`} key={index}>
+              <Menu.Item
+                className={`${baseClassName}-link`}
+                key={index}
+                onMouseEnter={() => {
+                  if (propsCollapsed) {
+                    setFixedCollapse(false);
+                  }
+                }}
+                onMouseLeave={() => {
+                  if (propsCollapsed) {
+                    setFixedCollapse(true);
+                  }
+                }}
+              >
                 {node}
               </Menu.Item>
             ))}

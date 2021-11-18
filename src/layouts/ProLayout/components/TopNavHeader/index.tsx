@@ -167,7 +167,7 @@ const TopNavHeader: React.FC<TopNavHeaderProps> = (props) => {
               return renderItemProps.routes ? (
                 <Popover
                   overlayClassName={`${prefixCls}-menu-popover`}
-                  transitionName="nr-slide-up"
+                  transitionName="ant-slide-up"
                   mouseEnterDelay={0}
                   align={{
                     ignoreShake: true,

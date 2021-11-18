@@ -1,0 +1,505 @@
+body {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  -webkit-appearance: none;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f7fafa;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e1e1e6;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #999;
+}
+
+.ant-layout-sider-children {
+  .ant-menu-sub.ant-menu-inline {
+    background-color: var(--layout-sider-background-light);
+  }
+}
+
+.ant-pro-fixed-header {
+  z-index: 9999;
+}
+
+html {
+  .ant-table-sticky-scroll {
+    z-index: 5;
+    height: 10px !important;
+    background-color: #f7fafa !important;
+    opacity: 1;
+  }
+
+  .ant-table-sticky-scroll-bar {
+    height: 10px !important;
+  }
+
+  .ant-table-sticky-scroll-bar,
+  .rc-virtual-list-scrollbar-thumb {
+    background-color: #e1e1e6 !important;
+
+    &:hover,
+    &:active {
+      background: #999 !important;
+    }
+  }
+
+  .ant-pro-top-nav-header-logo img {
+    width: 156px;
+  }
+
+  .ant-btn {
+    line-height: normal;
+  }
+
+  .ant-drawer-header-title,
+  .ant-drawer-title {
+    width: 100%;
+  }
+
+  .ant-btn,
+  .ant-checkbox-wrapper,
+  .ant-form-item-content,
+  .ant-form .ant-form-item-label,
+  .ant-input,
+  .ant-input-number,
+  .ant-modal-body,
+  .ant-radio-group-button .ant-radio-wrapper,
+  .ant-radio-wrapper,
+  .ant-select,
+  .ant-select-input,
+  .ant-select-item,
+  .ant-select-multiple .ant-select-selection .ant-select-placeholder,
+  .ant-select-single .ant-select-selection .ant-select-placeholder,
+  .ant-select-single .ant-select-selection .ant-select-selected-value,
+  .ant-table,
+  .ant-tooltip-popper,
+  .ant-form-item-label > label,
+  .ant-picker-input > input,
+  .ant-form-item-explain,
+  .ant-badge-status-text,
+  .ant-pagination,
+  .ant-radio-button-wrapper,
+  .ant-table.ant-table-small,
+  .ant-empty-normal,
+  .ant-tree-title,
+  .ant-empty-description,
+  .ant-pro-table-alert-info,
+  .ant-table.ant-table-middle,
+  .ant-pro-table td.ant-table-cell > a,
+  .ant-typography,
+  .ant-tooltip-inner,
+  .ant-card.ant-card-small .ant-card-head,
+  .ant-input-suffix,
+  .ant-dropdown-menu-item,
+  .ant-dropdown-menu-submenu-title,
+  .ant-form label,
+  .ant-input-search-button .ant-tree ul,
+  .ant-cascader-picker-label,
+  .ant-cascader-menu {
+    font-size: var(--font-size-sm);
+  }
+
+  .ant-empty-description {
+    color: var(--empty-color);
+  }
+
+  .ant-card-head,
+  .ant-btn-icon-only > .anticon-search,
+  .ant-pro-table-list-toolbar-title {
+    font-size: var(--font-size-base);
+  }
+
+  .ant-btn-icon-only.ant-btn-sm {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .ant-input-group-wrapper {
+    display: inline-flex;
+  }
+
+  .ant-picker {
+    padding: 6px 11px;
+  }
+
+  .ant-input-group-addon {
+    height: 100%;
+  }
+
+  .ant-input-group-compact {
+    .ant-input-affix-wrapper:first-child {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+  }
+
+  // 解决sticky-table的header距离top的问题
+  .ant-spin-blur {
+    overflow: unset;
+  }
+
+  .ant-input {
+    padding: 6px 11px;
+  }
+
+  h5.ant-typography,
+  .ant-typography h5 {
+    font-size: var(--font-size-base);
+  }
+
+  .ant-table-summary {
+    box-shadow: none !important;
+
+    .ant-table-cell {
+      padding: var(--md) var(--xs);
+    }
+
+    tr {
+      background: var(--table-header-bg);
+      transition: all 0.3s;
+
+      .ant-table-cell:last-child {
+        border-radius: 0 var(--border-radius-6) var(--border-radius-6) 0 !important;
+      }
+
+      .ant-table-cell:first-child {
+        border-radius: var(--border-radius-6) 0 0 var(--border-radius-6) !important;
+      }
+    }
+  }
+
+  .ant-table-summary > tr > th,
+  .ant-table-summary > tr > td {
+    font-size: var(--font-size-sm);
+    border: none;
+  }
+
+  .ant-table-empty {
+    padding-bottom: var(--md);
+  }
+
+  .ant-table-thead {
+    font-size: var(--font-size-sm);
+
+    .ant-table-cell {
+      overflow: unset;
+    }
+  }
+
+  .ant-table-column-title {
+    @apply tw-truncate;
+  }
+
+  .ant-table-header {
+    z-index: 5;
+    border-radius: var(--border-radius-6) !important;
+  }
+
+  .ant-table-tbody > tr,
+  .ant-table-thead > tr {
+    .ant-table-cell:last-child {
+      border-radius: 0 var(--border-radius-6) var(--border-radius-6) 0 !important;
+    }
+
+    .ant-table-cell:first-child {
+      border-radius: var(--border-radius-6) 0 0 var(--border-radius-6) !important;
+    }
+  }
+
+  .ant-table-tbody > tr > td {
+    border-bottom-color: transparent !important;
+  }
+
+  .ant-table-tbody > tr.ant-table-row:hover > td {
+    background: var(--table-body-sort-bg) !important;
+  }
+
+  .ant-table-tbody > tr.ant-table-row-selected:hover > td {
+    background: var(--table-selected-row-hover-bg) !important;
+  }
+
+  .ant-table {
+    .ant-table-thead > tr {
+      .ant-table-cell {
+        padding: var(--sm) var(--xs);
+      }
+    }
+
+    .ant-table-tbody .ant-table-row {
+      .ant-table-cell {
+        padding: var(--lg) var(--xs);
+
+        &.ant-table-column-sort {
+          // https://github.com/react-component/table/pull/669
+          background: local;
+        }
+      }
+    }
+
+    &.ant-table-small {
+      .ant-table-thead > tr {
+        .ant-table-cell {
+          padding: var(--sm) var(--xs);
+        }
+      }
+
+      .ant-table-tbody .ant-table-row {
+        .ant-table-cell {
+          padding: var(--sm) var(--xs);
+        }
+      }
+    }
+
+    .ant-table-tbody {
+      .ant-table-row:nth-of-type(odd) {
+        background: var(--table-body-row-odd-bg-color);
+      }
+
+      .ant-table-row:nth-of-type(even) {
+        background: var(--table-body-row-even-bg-color);
+      }
+    }
+  }
+
+  .ant-pro-table {
+    padding: 0;
+
+    .ant-table-tbody {
+      .ant-table-row:nth-of-type(odd) {
+        background: var(--table-body-row-even-bg-color);
+      }
+
+      .ant-table-row:nth-of-type(even) {
+        background: var(--table-body-row-odd-bg-color);
+      }
+    }
+
+    & > .ant-card > .ant-card-body {
+      padding: 0;
+    }
+  }
+
+  .ant-table-cell-fix-left,
+  .ant-table-cell-fix-right {
+    z-index: 4;
+    background: inherit;
+  }
+
+  .ant-table .ant-table-tbody > .ant-table-row > td {
+    .ant-btn.ant-btn-link {
+      height: auto;
+      padding: 0 var(--xs);
+    }
+  }
+
+  .ant-table-column-sorters::after {
+    content: none;
+  }
+
+  .ant-pro-top-nav-header-logo h1 {
+    font-weight: var(--font-weight-bold);
+    font-size: calc(var(--font-size-lg) + 2px);
+  }
+
+  .ant-layout {
+    background-color: var(--white);
+  }
+
+  .ant-layout-sider {
+    background: var(--layout-sider-background-light);
+  }
+
+  .ant-layout.ant-layout-has-sider {
+    & > div:nth-child(1) {
+      transition: background-color 0.3s ease 0s !important;
+    }
+  }
+
+  .ant-tabs-top > .ant-tabs-nav::before {
+    border: none;
+    content: '';
+  }
+
+  .ant-pro-top-nav-header-main-left {
+    min-width: 0;
+  }
+
+  .ant-btn-link {
+    &:hover,
+    &:focus {
+      color: var(--link-hover-color);
+    }
+
+    &:active {
+      color: var(--link-active-color);
+    }
+  }
+
+  .ant-btn-text {
+    &:hover,
+    &:focus,
+    &:active {
+      color: var(--ant-primary-color) !important;
+      background: transparent;
+    }
+  }
+
+  .ant-btn-success {
+    color: var(--white);
+    background: var(--success-color);
+    border-color: var(--success-color);
+
+    &:hover,
+    &:focus {
+      background: color(~`colorPalette('@{success-color}', 5) `);
+      border-color: color(~`colorPalette('@{success-color}', 5) `);
+    }
+
+    &:active {
+      background: color(~`colorPalette('@{success-color}', 7) `);
+      border-color: color(~`colorPalette('@{success-color}', 7) `);
+    }
+  }
+
+  // @see https://github.com/ant-design/ant-design/pull/31240
+  .ant-form-item-has-error :not(.ant-input-disabled).ant-input:focus {
+    box-shadow: none;
+  }
+
+  .ant-card-head-title {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg);
+  }
+
+  .ant-tooltip-inner {
+    min-height: 0;
+    max-height: 100vh;
+    overflow: auto;
+  }
+
+  // 关闭cell下的所有动画过渡效果，优化表格渲染
+  .ant-table-cell,
+  .art-table-cell {
+    .ant-checkbox-checked .ant-checkbox-inner::after,
+    .ant-switch,
+    .ant-switch-handle,
+    .ant-switch-handle::before,
+    .ant-switch-inner,
+    .ant-radio-inner,
+    .ant-radio-inner::after {
+      transition: none !important;
+    }
+
+    .ant-checkbox-checked::after,
+    .ant-radio-checked::after {
+      animation: none !important;
+    }
+  }
+
+  .ant-form-item-label
+    > label.ant-form-item-required:not(.ant-form-item-required-mark-optional) {
+    &::before {
+      content: none;
+    }
+
+    &::after {
+      display: inline-block;
+      width: var(--xxs);
+      height: var(--xxs);
+      margin-left: var(--xxs);
+      background-color: var(--error-color);
+      border-radius: 50%;
+      content: '';
+    }
+  }
+
+  .ant-divider {
+    color: var(--border-color-base) !important;
+    border-color: var(--border-color-base) !important;
+  }
+
+  .ant-form-item-label > label .ant-form-item-tooltip {
+    color: var(--text-color-third);
+    cursor: default;
+  }
+
+  .ant-table-filter-trigger {
+    margin: 0;
+  }
+
+  .ant-table-ping-left:not(.ant-table-has-fix-left),
+  .ant-table-ping-right:not(.ant-table-has-fix-right) {
+    .ant-table-container {
+      &::before {
+        border-radius: var(--border-radius-6) 0 0 var(--border-radius-6);
+      }
+
+      &::after {
+        border-radius: 0 var(--border-radius-6) var(--border-radius-6) 0;
+      }
+    }
+  }
+
+  .ant-drawer-header {
+    padding: var(--md);
+  }
+
+  .ant-drawer-body {
+    position: relative;
+    padding-top: var(--sm);
+  }
+
+  .ant-form-inline .ant-form-item {
+    margin-bottom: 0;
+  }
+
+  // TODO: 4.17.0-alpha.7有样式问题，临时添加解决
+  .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+}
+
+.ant-typography {
+  margin-bottom: 0;
+}
+
+.loading-delay {
+  animation: pulse 0.5s linear 0s 1 normal none;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0.3;
+  }
+
+  80% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

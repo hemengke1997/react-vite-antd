@@ -21,6 +21,8 @@
     "experimentalDecorators": true,
     "downlevelIteration": true,
     "strict": true,
+    "types": ["vite/client"],
+    "typeRoots": ["./node_modules/@types/", "./types"],
     "paths": {
       "@/*": ["src/*"],
       "config/*": ["config/*"]
@@ -31,6 +33,8 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
+    "types/**/*.d.ts",
+    "types/**/*.ts",
     "vite.config.ts",
     "windi.config.ts",
     ".eslintrc.js"

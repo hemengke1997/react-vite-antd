@@ -1,4 +1,3 @@
-import './index.less';
 import Icon, { createFromIconfontCN } from '@ant-design/icons';
 import { Menu } from 'antd';
 import React, { useEffect, useState, useRef, useMemo } from 'react';

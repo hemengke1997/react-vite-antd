@@ -1,7 +1,6 @@
 @import '~antd/es/style/themes/default.less';
 @import '../../BasicLayout.less';
 
-@ant-prefix: nr;
 @pro-layout-sider-menu-prefix-cls: ~'@{ant-prefix}-pro-sider';
 
 @nav-header-height: @pro-layout-header-height;
@@ -22,7 +21,7 @@
     }
     .@{ant-prefix}-menu-item-selected a,
     .@{ant-prefix}-menu-item a:hover {
-      color: @primary-color;
+      color: var(--ant-primary-color);
     }
   }
 
@@ -148,7 +147,7 @@
 
     .@{pro-layout-sider-menu-prefix-cls}-logo {
       h1 {
-        color: @primary-color;
+        color: var(--ant-primary-color);
       }
     }
     .@{ant-prefix}-menu-light {

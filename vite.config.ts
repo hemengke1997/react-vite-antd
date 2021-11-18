@@ -39,7 +39,6 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       preprocessorOptions: {
         less: {
           javascriptEnabled: true,
-          // modifyVars: themeVariables,
         },
       },
     },

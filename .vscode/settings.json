@@ -15,10 +15,13 @@
     "**/Thumbs.db": true
   },
   "editor.codeActionsOnSave": {
-    "source.fixAll.stylelint": true
+    "source.fixAll.stylelint": false
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "javascript.suggestionActions.enabled": false,
-  "css.validate": false
+  "css.validate": false,
+  "editor.quickSuggestions": {
+    "strings": true
+  }
 }
