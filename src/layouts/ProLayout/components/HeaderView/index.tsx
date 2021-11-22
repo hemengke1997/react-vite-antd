@@ -1,5 +1,3 @@
-import './index.less';
-
 import React from 'react';
 import classNames from 'classnames';
 import { Layout } from 'antd';
@@ -26,6 +24,7 @@ export type HeaderViewProps = {
   headerContentRender?: WithFalse<(props: HeaderViewProps) => React.ReactNode>;
   siderWidth?: number;
   hasSiderMenu?: boolean;
+  hasTopMenu?: boolean;
   onCollapse?: (collapsed: boolean) => void;
   menuRender?: WithFalse<
     (props: HeaderViewProps, defaultDom: React.ReactNode) => React.ReactNode

@@ -1,19 +1,15 @@
 // 需要重写antd的样式时，在这里覆盖
 
+@ant-prefix: ant;
+
 // Color
-
 @white: #fff;
+@black: #000;
 
-// BackTop
-// @back-top-bg: color(~`colorPalette('@{primary-color}', 4) `);
-// @back-top-hover-bg: color(~`colorPalette('@{primary-color}', 5) `);
+@heading-color: fade(@black, 85%);
 
 // Radius
 @border-radius-base: 4px;
-
-// Tooltip
-@tooltip-bg: @white;
-@tooltip-color: @text-color;
 
 // Text
 @text-color: #181a1a; // 一级文本
@@ -21,11 +17,14 @@
 @text-color-third: #626a6a; // 三级文本
 @text-color-fourth: #889191; // 四级文本
 @text-color-fifth: #afb6b6; // 五级文本（失效、暗提示）
-@text-selection-bg: hsla(234, 100%, 84%, 1);
+@text-selection-bg: var(--primary-4);
 
 // Disabled states
 @disabled-color: #626a6a;
 @disabled-bg: #eceeee;
+
+// Buttons
+@btn-primary-color: #fff;
 
 // Background color for `<body>`
 @body-background: #fff;
@@ -53,10 +52,30 @@
 @empty-color: fade(#000, 50%);
 
 // Layout
+// Layout
+@layout-body-background: #f0f2f5;
+@layout-header-background: #001529;
+@layout-header-height: 64px;
+@layout-header-padding: 0 50px;
+@layout-header-color: @text-color;
+@layout-footer-padding: 24px 50px;
+@layout-footer-background: @layout-body-background;
+@layout-sider-background: @layout-header-background;
+@layout-trigger-height: 48px;
+@layout-trigger-background: #002140;
+@layout-trigger-color: #fff;
+@layout-zero-trigger-width: 36px;
+@layout-zero-trigger-height: 42px;
+@layout-trigger-background-light: #fff;
+@layout-trigger-color-light: @text-color;
 @layout-sider-background-light: hsla(180, 23%, 97%, 1);
 
 // Border Color
 @border-color-base: #e1e6e6;
+@border-color-split: hsv(0, 0, 94%); // split border inside a component
+@border-color-inverse: @white;
+@border-width-base: 1px; // width of the border for a component
+@border-style-base: solid; // style of a components border
 
 // Font
 @font-size-base: 14px;

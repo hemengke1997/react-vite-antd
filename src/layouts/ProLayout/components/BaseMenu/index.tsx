@@ -1,11 +1,10 @@
 import Icon, { createFromIconfontCN } from '@ant-design/icons';
 import { Menu } from 'antd';
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import classNames from 'classnames';
 
 import type { MenuProps } from 'antd';
 import type { PureSettings } from '../../defaultSettings';
-import defaultSettings from '../../defaultSettings';
 
 import type {
   MenuDataItem,
@@ -15,10 +14,9 @@ import type {
 } from '../../typings';
 import isUrl from '../../utils/isUrl';
 import isImg from '../../utils/isImg';
-import MenuContext from '../../context/MenuContext';
 import useMountControlledState from '@/hooks/useMountControlledState';
-import getOpenKeysFromMenuData from '../../utils/getOpenKeysFromMenuData';
 import type { PrivateSiderMenuProps } from '../SiderMenu/SiderMenu';
+import { defaultSettings } from '@/utils/setting';
 
 // todo
 export type MenuMode =
@@ -36,7 +34,6 @@ export type BaseMenuProps = {
   menuData?: MenuDataItem[];
   mode?: MenuMode;
   onCollapse?: (collapsed: boolean) => void;
-  openKeys?: WithFalse<string[]> | undefined;
   handleOpenChange?: (openKeys: string[]) => void;
   iconPrefixes?: string;
   /** 要给菜单的props, 参考antd-menu的属性。https://ant.design/components/menu-cn/ */
@@ -118,9 +115,11 @@ class MenuUtil {
     item: MenuDataItem,
     isChildren: boolean,
   ): React.ReactNode => {
+    const { mode, prefixCls } = this.props;
+
     if (Array.isArray(item.children) && item && item.children.length > 0) {
       const name = item.name;
-      const { subMenuItemRender, prefixCls, menu, iconPrefixes } = this.props;
+      const { subMenuItemRender, menu, iconPrefixes } = this.props;
       //  get defaultTitle by menuItemRender
       const defaultTitle = item.icon ? (
         <span className={`${prefixCls}-menu-item`} title={name}>
@@ -156,8 +155,9 @@ class MenuUtil {
         key={item.path}
         onClick={item.onTitleClick}
         style={{
-          cursor: this.props.mode === 'horizontal' ? 'default' : 'pointer',
+          cursor: mode === 'horizontal' ? 'default' : 'pointer',
         }}
+        className={`${prefixCls}-menu-li`}
       >
         {this.getMenuItemPath(item, isChildren)}
       </Menu.Item>
@@ -225,7 +225,7 @@ class MenuUtil {
 }
 
 /**
- * 生成openKeys 的对象，因为设置了openKeys 就会变成受控，所以需要一个空对象
+ * 生成openKeys 的对象
  *
  * @param BaseMenuProps
  */
@@ -251,45 +251,20 @@ const BaseMenu: React.FC<BaseMenuProps & PrivateSiderMenuProps> = (props) => {
     handleOpenChange,
     style,
     menuData,
-    menu,
     matchMenuKeys,
     iconfontUrl,
     collapsed,
-    selectedKeys: propsSelectedKeys,
     onSelect,
-    openKeys: propsOpenKeys,
+    menu,
   } = props;
 
-  // 用于减少 defaultOpenKeys 计算的组件
-  const defaultOpenKeysRef = useRef<string[]>([]);
-
-  const { flatMenuKeys } = MenuContext.usePicker(['flatMenuKeys']);
-  const [defaultOpenAll, setDefaultOpenAll] = useMountControlledState(
-    menu?.defaultOpenAll,
-  );
-
-  const [openKeys, setOpenKeys] = useMountControlledState<
-    WithFalse<React.Key[]>
-  >(
-    () => {
-      if (menu?.defaultOpenAll) {
-        return getOpenKeysFromMenuData(menuData) || [];
-      }
-      if (propsOpenKeys === false) {
-        return false;
-      }
-      return [];
-    },
-    {
-      value: propsOpenKeys === false ? undefined : propsOpenKeys,
-      onChange: handleOpenChange as any,
-    },
-  );
+  const [openKeys, setOpenKeys] = useMountControlledState<string[]>([], {
+    onChange: handleOpenChange as any,
+  });
 
   const [selectedKeys, setSelectedKeys] = useMountControlledState<
     string[] | undefined
   >([], {
-    value: propsSelectedKeys,
     onChange: onSelect
       ? (keys) => {
           if (onSelect && keys) {
@@ -300,13 +275,6 @@ const BaseMenu: React.FC<BaseMenuProps & PrivateSiderMenuProps> = (props) => {
   });
 
   useEffect(() => {
-    if (
-      menu?.defaultOpenAll ||
-      propsOpenKeys === false ||
-      flatMenuKeys.length
-    ) {
-      return;
-    }
     if (matchMenuKeys) {
       setOpenKeys(matchMenuKeys);
       setSelectedKeys(matchMenuKeys);
@@ -322,32 +290,35 @@ const BaseMenu: React.FC<BaseMenuProps & PrivateSiderMenuProps> = (props) => {
     }
   }, [iconfontUrl]);
 
+  const openKeysProps = useMemo(
+    () => getOpenKeysProps(openKeys, props),
+    [openKeys && openKeys.join(','), props.collapsed],
+  );
+
+  const lastOpenKeys = useRef<string[]>([]);
+
   useEffect(() => {
     // if pathname can't match, use the nearest parent's key
     if (matchMenuKeys.join('-') !== (selectedKeys || []).join('-')) {
       setSelectedKeys(matchMenuKeys);
     }
-    if (
-      !defaultOpenAll &&
-      propsOpenKeys !== false &&
-      matchMenuKeys.join('-') !== (openKeys || []).join('-')
-    ) {
-      let newKeys: React.Key[] = matchMenuKeys;
+    if (matchMenuKeys.join('-') !== (openKeys || []).join('-')) {
+      let newKeys: string[] = matchMenuKeys;
       // 如果不自动关闭，我需要把 openKeys 放进去
       if (menu?.autoClose === false) {
-        newKeys = Array.from(new Set([...matchMenuKeys, ...(openKeys || [])]));
+        newKeys = Array.from(
+          new Set([
+            ...matchMenuKeys,
+            ...(openKeys.length ? openKeys : lastOpenKeys.current),
+          ]),
+        );
       }
       setOpenKeys(newKeys);
-    } else if (menu?.ignoreFlatMenu && defaultOpenAll) {
-      // 忽略用户手动折叠过的菜单状态，折叠按钮切换之后也可实现默认展开所有菜单
-      setOpenKeys(getOpenKeysFromMenuData(menuData));
-    } else if (flatMenuKeys.length > 0) setDefaultOpenAll(false);
+    }
+    if (collapsed) {
+      lastOpenKeys.current = openKeys;
+    }
   }, [matchMenuKeys.join('-'), collapsed]);
-
-  const openKeysProps = useMemo(
-    () => getOpenKeysProps(openKeys, props),
-    [openKeys && openKeys.join(','), props.collapsed],
-  );
 
   const [menuUtils] = useState(() => new MenuUtil(props));
 
@@ -357,13 +328,6 @@ const BaseMenu: React.FC<BaseMenuProps & PrivateSiderMenuProps> = (props) => {
 
   // sync props
   menuUtils.props = props;
-
-  // 这次 openKeys === false 的时候的情况，这种情况下帮用户选中一次
-  // 第二此不会使用，所以用了 defaultOpenKeys
-  // 这里返回 null，是为了让 defaultOpenKeys 生效
-  if (props.openKeys === false && !props.handleOpenChange) {
-    defaultOpenKeysRef.current = matchMenuKeys;
-  }
 
   const finallyData = props.postMenuData
     ? props.postMenuData(menuData)
@@ -379,7 +343,6 @@ const BaseMenu: React.FC<BaseMenuProps & PrivateSiderMenuProps> = (props) => {
       key="Menu"
       mode={mode}
       inlineIndent={16}
-      defaultOpenKeys={defaultOpenKeysRef.current}
       theme="light"
       selectedKeys={selectedKeys}
       style={style}

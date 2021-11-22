@@ -1,5 +1,5 @@
 import { RecoilRoot } from 'recoil';
-import { ConfigProvider } from 'antd';
+import { BackTop, ConfigProvider } from 'antd';
 import zh_CN from 'antd/lib/locale/zh_CN';
 import { BrowserRouter } from 'react-router-dom';
 import CreateRoutes from './layouts/ProLayout/renderer-react/renderRoutes';
@@ -21,12 +21,13 @@ function App() {
         <RecoilRoot>
           <BrowserRouter>
             <AccessProvider routes={routes}>
-              <CreateRoutes></CreateRoutes>
+              <CreateRoutes />
             </AccessProvider>
           </BrowserRouter>
           <ThemeSetting />
         </RecoilRoot>
       </GlobalContext.Provider>
+      <BackTop duration={200} style={{ right: 24, bottom: 80 }} />
     </ConfigProvider>
   );
 }

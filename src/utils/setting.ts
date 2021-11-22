@@ -1,3 +1,4 @@
+import type { ProSettings } from '@/layouts/ProLayout/defaultSettings';
 import type { Theme } from 'antd/es/config-provider/context.d';
 
 export const themeName = 'ant-theme';
@@ -17,3 +18,15 @@ export const breakpoints = {
   xl: 1200,
   xxl: 1600,
 } as const;
+
+export const defaultSettings: ProSettings = {
+  contentWidth: 'Fluid',
+  fixedHeader: true,
+  fixSiderbar: true,
+  headerHeight: 64,
+  iconfontUrl: '',
+  menu: {
+    autoClose: false,
+  },
+  logo: '/src/assets/logo.svg',
+};

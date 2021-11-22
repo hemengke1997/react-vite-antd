@@ -1,8 +1,8 @@
 const getLayoutRenderConfig = (currentPathConfig: {
   layout:
     | {
-        hideMenu: boolean;
-        hideNav: boolean;
+        hasSiderMenu: boolean;
+        hasTopMenu: boolean;
       }
     | false;
 }) => {
@@ -13,12 +13,12 @@ const getLayoutRenderConfig = (currentPathConfig: {
     return layoutRender;
   }
 
-  if (currentPathConfig?.layout?.hideMenu) {
-    layoutRender.menuRender = false;
+  if (currentPathConfig?.layout?.hasSiderMenu) {
+    layoutRender.hasSiderMenu = false;
   }
 
-  if (currentPathConfig?.layout?.hideNav) {
-    layoutRender.headerRender = false;
+  if (currentPathConfig?.layout?.hasTopMenu) {
+    layoutRender.hasTopMenu = false;
   }
 
   return layoutRender;

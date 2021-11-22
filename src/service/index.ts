@@ -295,23 +295,6 @@ function createAxios(opt?: Partial<CreateAxiosOptions>) {
   );
 }
 
-export const requestGW = createAxios({
-  withCredentials: true,
-  requestOptions: {
-    urlPrefix: import.meta.env.VITE_GW_HOST as string,
-  },
-  headers: {
-    'n-token': '342bdbf6864146f59730fbd6eace18f9',
-  },
-});
-
-export const requestXYZ = createAxios({
-  withCredentials: true,
-  requestOptions: {
-    urlPrefix: import.meta.env.VITE_NEWRANK_HOST as string,
-  },
-});
-
 // other api url
 // export const otherHttp = createAxios({
 //   requestOptions: {

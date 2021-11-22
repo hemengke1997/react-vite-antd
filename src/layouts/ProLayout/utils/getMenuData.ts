@@ -1,13 +1,30 @@
 import type { MenuDataItem, Route } from '../typings';
 import memoizeOne from 'memoize-one';
 import { isEqual } from 'lodash-es';
-import { mergePath } from '../renderer-react/renderRoutes';
 import sha265 from './sha265';
+import isUrl from './isUrl';
 
 interface FormatterProps {
   data: Route[];
   [key: string]: any;
 }
+
+/**
+ * 如果不是 / 开头的和父节点做一下合并
+ * 如果是 / 开头的不作任何处理
+ * 如果是 url 也直接返回
+ * @param path
+ * @param parentPath
+ */
+const mergePath = (path: string = '', parentPath: string = '/') => {
+  if ((path || parentPath).startsWith('/')) {
+    return path;
+  }
+  if (isUrl(path)) {
+    return path;
+  }
+  return `/${parentPath}/${path}`.replace(/\/\//g, '/').replace(/\/\//g, '/');
+};
 
 export function stripQueryStringAndHashFromPath(url: string) {
   return url.split('?')[0].split('#')[0];
@@ -93,6 +110,7 @@ const transformRoute = (
 ): {
   breadcrumb: Map<string, MenuDataItem>;
   menuData: MenuDataItem[];
+  originalMenuData: MenuDataItem[];
 } => {
   const originalMenuData = memoizeOneFormatter({
     data: routes,
@@ -103,7 +121,7 @@ const transformRoute = (
   // Map type used for internal logic
   const breadcrumb = memoizeOneGetBreadcrumbNameMap(originalMenuData);
 
-  return { breadcrumb, menuData };
+  return { breadcrumb, menuData, originalMenuData };
 };
 
 function formatter(
@@ -118,7 +136,7 @@ function formatter(
   return data
     .filter((item) => {
       if (!item) return false;
-      if (item.path === '*') return true;
+      if (item.path === '*' || item.path === '/*') return false;
       if (item.redirect) return false;
       if (item.routes || item.children) return true;
       if (item.path) return true;
@@ -183,13 +201,14 @@ export default (
   routes: Route[],
   menuDataRender?: (menuData: MenuDataItem[]) => MenuDataItem[],
 ) => {
-  const { menuData, breadcrumb } = transformRoute(routes);
+  const { menuData, breadcrumb, originalMenuData } = transformRoute(routes);
 
   if (!menuDataRender) {
     return {
       breadcrumb: fromEntries(breadcrumb),
       breadcrumbMap: breadcrumb,
       menuData,
+      originalMenuData,
     };
   }
   const renderData = transformRoute(menuDataRender(menuData));
@@ -197,5 +216,6 @@ export default (
     breadcrumb: fromEntries(renderData.breadcrumb),
     breadcrumbMap: renderData.breadcrumb,
     menuData: renderData.menuData,
+    originalMenuData: renderData.originalMenuData,
   };
 };

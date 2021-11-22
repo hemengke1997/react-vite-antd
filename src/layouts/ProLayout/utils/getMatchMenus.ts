@@ -64,6 +64,7 @@ export const getMatchMenu = (
   exact?: boolean,
 ): MenuDataItem[] => {
   const flatMenus = getFlatMenu(menuData);
+
   const flatMenuKeys = Object.keys(flatMenus);
   let menuPathKeys = getMenuMatches(flatMenuKeys, pathname || '/', exact);
 

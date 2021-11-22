@@ -179,10 +179,7 @@ module.exports = defineConfig({
     '@typescript-eslint/ban-types': 1,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/naming-convention': 0,
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      { vars: 'all', args: 'after-used', ignoreRestSiblings: true },
-    ],
+    '@typescript-eslint/no-unused-vars': 0,
   },
   settings: {
     react: {

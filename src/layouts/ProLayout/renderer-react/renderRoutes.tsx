@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Redirect,
   Route as ReactRoute,
@@ -6,7 +5,6 @@ import {
   SwitchProps,
 } from 'react-router-dom';
 import type { Route } from '@/layouts/ProLayout/typings';
-import isUrl from '../utils/isUrl';
 
 interface IOpts {
   routes: Route[];
@@ -19,24 +17,6 @@ interface IGetRouteElementOpts {
   index: number;
   opts: IOpts;
 }
-
-/**
- * 合并路径
- * @param path 当前路径
- * @param parentPath 父级路径
- */
-export const mergePath = (path: string = '', parentPath: string = '/') => {
-  if (path === '*') {
-    return path;
-  }
-  if (isUrl(path)) {
-    return path;
-  }
-  if ((path || parentPath).startsWith('/')) {
-    return path;
-  }
-  return `/${parentPath}/${path}`.replace(/\/\//g, '/').replace(/\/\//g, '/');
-};
 
 /**
  * 渲染路由
@@ -71,15 +51,6 @@ function render({
 
     let ret = <Component {...newProps}>{routes}</Component>;
 
-    // route.wrappers
-    // if (wrappers) {
-    //   let len = wrappers.length - 1;
-    //   while (len >= 0) {
-    //     ret = createElement(wrappers[len], newProps, ret);
-    //     len -= 1;
-    //   }
-    // }
-
     return ret;
   } else {
     return routes;
@@ -88,7 +59,7 @@ function render({
 
 function getRouteElement({ route, index, opts }: IGetRouteElementOpts) {
   const routeProps = {
-    key: route.key || `${route.path}-${index}`,
+    key: route.key || route.path || index,
     sensitive: route.sensitive,
     exact: route.exact,
     strict: route.strict,
@@ -98,6 +69,7 @@ function getRouteElement({ route, index, opts }: IGetRouteElementOpts) {
   if (route.redirect) {
     return <Redirect {...routeProps} from={route.path} to={route.redirect} />;
   }
+
   return (
     <ReactRoute
       {...routeProps}
@@ -132,7 +104,9 @@ export function renderRoutes(opts: IOpts, switchProps = {}) {
 function CreateRoutes(props: { routes?: Route[]; switchProps?: SwitchProps }) {
   const { routes, switchProps } = props;
 
+  console.log(routes, 'routes');
+
   return renderRoutes({ routes: routes! }, switchProps);
 }
 
-export default React.memo(CreateRoutes);
+export default CreateRoutes;

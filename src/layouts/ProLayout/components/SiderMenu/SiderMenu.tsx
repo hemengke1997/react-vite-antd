@@ -1,6 +1,6 @@
-import { CSSProperties, useMemo, useState } from 'react';
+import { CSSProperties } from 'react';
 import React from 'react';
-import { Layout, Menu, Tooltip } from 'antd';
+import { Layout, Menu } from 'antd';
 import classNames from 'classnames';
 import type { SiderProps } from 'antd/lib/layout/Sider';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
@@ -40,15 +40,7 @@ export type SiderMenuProps = {
 } & Pick<BaseMenuProps, Exclude<keyof BaseMenuProps, ['onCollapse']>>;
 
 export const defaultRenderCollapsedButton = (collapsed?: boolean) =>
-  collapsed ? (
-    <Tooltip title="固定" placement="right">
-      <MenuUnfoldOutlined />
-    </Tooltip>
-  ) : (
-    <Tooltip title="收起" placement="right">
-      <MenuFoldOutlined />
-    </Tooltip>
-  );
+  collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />;
 
 export type PrivateSiderMenuProps = {
   matchMenuKeys: string[];
@@ -111,16 +103,6 @@ const SiderMenu: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (props) => {
     ? menuContentRender(props, menuDom)
     : menuDom;
 
-  const [fixedCollapsed, setFixedCollapse] = useState<boolean>(false);
-
-  const collapsed = useMemo(() => {
-    // closed
-    if (propsCollapsed) {
-      return fixedCollapsed;
-    }
-    return propsCollapsed;
-  }, [propsCollapsed, fixedCollapsed]);
-
   return (
     <>
       {fixSiderbar && (
@@ -138,7 +120,7 @@ const SiderMenu: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (props) => {
       <Sider
         collapsible
         trigger={null}
-        collapsed={collapsed}
+        collapsed={propsCollapsed}
         breakpoint={breakpoint === false ? undefined : breakpoint}
         onCollapse={(collapse) => {
           onCollapse?.(collapse);
@@ -165,16 +147,6 @@ const SiderMenu: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (props) => {
             overflowY: 'auto',
             overflowX: 'hidden',
           }}
-          onMouseEnter={() => {
-            if (propsCollapsed) {
-              setFixedCollapse(false);
-            }
-          }}
-          onMouseLeave={() => {
-            if (propsCollapsed) {
-              setFixedCollapse(true);
-            }
-          }}
         >
           {menuRenderDom}
         </div>
@@ -188,20 +160,7 @@ const SiderMenu: React.FC<SiderMenuProps & PrivateSiderMenuProps> = (props) => {
             mode="inline"
           >
             {(links || []).map((node, index) => (
-              <Menu.Item
-                className={`${baseClassName}-link`}
-                key={index}
-                onMouseEnter={() => {
-                  if (propsCollapsed) {
-                    setFixedCollapse(false);
-                  }
-                }}
-                onMouseLeave={() => {
-                  if (propsCollapsed) {
-                    setFixedCollapse(true);
-                  }
-                }}
-              >
+              <Menu.Item className={`${baseClassName}-link`} key={index}>
                 {node}
               </Menu.Item>
             ))}

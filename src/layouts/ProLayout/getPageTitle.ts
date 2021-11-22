@@ -9,9 +9,9 @@ export const matchParamsPath = (
   // Internal logic use breadcrumbMap to ensure the order
   // 内部逻辑使用 breadcrumbMap 来确保查询顺序
   if (breadcrumbMap) {
-    const pathKey = [...breadcrumbMap.keys()].find((key) =>
-      pathToRegexp(key).test(pathname),
-    );
+    const pathKey = [...breadcrumbMap.keys()].find((key) => {
+      return pathToRegexp(key).test(pathname);
+    });
     if (pathKey) {
       return breadcrumbMap.get(pathKey) as MenuDataItem;
     }

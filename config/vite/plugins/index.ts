@@ -7,7 +7,12 @@ import legacy from '@vitejs/plugin-legacy';
 import react from '@vitejs/plugin-react';
 import windiCSS from 'vite-plugin-windicss';
 import { configVisualizerConfig } from './visualizer';
-import { VITE_APP_LEGACY } from '../../constant';
+import { configCompressPlugin } from './compress';
+import {
+  VITE_APP_LEGACY,
+  VITE_BUILD_COMPRESS,
+  VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE,
+} from '../../constant';
 
 export function createVitePlugins(isBuild: boolean) {
   const vitePlugins: (PluginOption | PluginOption[])[] = [react()];
@@ -20,6 +25,16 @@ export function createVitePlugins(isBuild: boolean) {
 
   // rollup-plugin-visualizer
   vitePlugins.push(configVisualizerConfig());
+
+  if (isBuild) {
+    // rollup-plugin-gzip
+    vitePlugins.push(
+      configCompressPlugin(
+        VITE_BUILD_COMPRESS,
+        VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE,
+      ),
+    );
+  }
 
   return vitePlugins;
 }

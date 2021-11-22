@@ -4,11 +4,9 @@ import UnAccessible from '@/pages/UnAccessible/403';
 
 export interface IRouteLayoutConfig {
   /** 默认 false */
-  hideMenu?: boolean;
+  hasSiderMenu?: boolean;
   /** 默认 false */
-  hideNav?: boolean;
-  /** 默认 false */
-  hideFooter?: boolean;
+  hasTopMenu?: boolean;
   [key: string]: any;
 }
 

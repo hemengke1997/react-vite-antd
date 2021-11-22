@@ -1,4 +1,4 @@
-@import '~antd/es/style/themes/default.less';
+@import '../../BasicLayout.less';
 
 @top-nav-header-prefix-cls: ~'@{ant-prefix}-pro-top-nav-header';
 
@@ -17,6 +17,17 @@
     .@{ant-prefix}-popover-arrow {
       display: none;
     }
+    &-box {
+      &::before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: transparent;
+        content: '';
+      }
+    }
   }
 
   &.light {
@@ -34,10 +45,9 @@
   &-main {
     display: flex;
     height: 100%;
-    padding-left: 16px;
+
     &-left {
       display: flex;
-      min-width: 192px;
     }
   }
 
@@ -48,6 +58,7 @@
   &-logo {
     position: relative;
     min-width: 165px;
+    width: 100%;
     height: 100%;
     overflow: hidden;
 
@@ -56,6 +67,7 @@
       align-items: center;
       justify-content: center;
       min-height: 32px;
+      height: 100%;
     }
 
     img {
@@ -71,6 +83,35 @@
       font-weight: 400;
       font-size: 16px;
       vertical-align: top;
+    }
+  }
+
+  .top-nav-menu li.@{ant-prefix}-menu-item {
+    border-bottom: none !important;
+    &::after {
+      border-bottom: none !important;
+      pointer-events: none;
+      transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+      width: 0;
+      height: 0;
+      border-left: 5.5px solid transparent;
+      border-right: 5.5px solid transparent;
+      border-top: 7px solid var(--primary-color);
+      border-radius: 12px;
+      position: absolute;
+      right: 0px;
+      bottom: unset;
+      top: 52%;
+      transform: translate(-13.5px, -50%);
+      left: 100%;
+      opacity: 0;
+    }
+    &:hover,
+    &-selected,
+    &-active {
+      &::after {
+        opacity: 1;
+      }
     }
   }
 

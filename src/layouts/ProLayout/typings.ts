@@ -55,6 +55,10 @@ export type WithFalse<T> = T | false;
 
 export type Route = {
   routes?: Route[];
+  layout?: WithFalse<{
+    hasSiderMenu?: boolean;
+    hasTopMenu?: boolean;
+  }>;
 } & MenuDataItem;
 
 export type RouterTypes<P> = {
@@ -67,7 +71,6 @@ export type ContentWidth = 'Fluid' | 'Fixed';
 
 export type RenderSetting = {
   headerRender?: false;
-  footerRender?: false;
   menuRender?: false;
   menuHeaderRender?: false;
 };

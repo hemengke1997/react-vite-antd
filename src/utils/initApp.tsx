@@ -1,8 +1,11 @@
 import SpinLoadingIcon from '@/components/Loading/SpinLoadingIcon';
-import defaultSettings from '@/layouts/ProLayout/defaultSettings';
 import { message, notification, Spin } from 'antd';
 import { ConfigProvider } from 'antd';
-import { theme as defaultTheme, themeName } from '@/utils/setting';
+import {
+  defaultSettings,
+  theme as defaultTheme,
+  themeName,
+} from '@/utils/setting';
 
 /**
  * App启动时需要做的的配置

@@ -25,3 +25,10 @@ export const VITE_APP_COMPRESS_GZIP_DELETE_FILE: boolean = false;
 export const VITE_DROP_CONSOLE: boolean = true;
 // 开启兼容
 export const VITE_APP_LEGACY: boolean = true;
+// Whether to enable gzip or brotli compression
+// Optional: gzip | brotli | none
+// If you need multiple forms, you can use `,` to separate
+export const VITE_BUILD_COMPRESS = 'none';
+
+// Whether to delete origin files when using compress, default false
+export const VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE = false;

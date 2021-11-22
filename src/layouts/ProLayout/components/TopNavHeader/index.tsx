@@ -153,7 +153,11 @@ const TopNavHeader: React.FC<TopNavHeaderProps> = (props) => {
         }`}
       >
         {headerDom && (
-          <div className={`${prefixCls}-main-left`} onClick={onMenuHeaderClick}>
+          <div
+            className={`${prefixCls}-main-left`}
+            onClick={onMenuHeaderClick}
+            style={{ width: props.siderWidth }}
+          >
             <div className={`${prefixCls}-logo`} key="logo" id="logo">
               {headerDom}
             </div>
@@ -169,13 +173,16 @@ const TopNavHeader: React.FC<TopNavHeaderProps> = (props) => {
                   overlayClassName={`${prefixCls}-menu-popover`}
                   transitionName="ant-slide-up"
                   mouseEnterDelay={0}
+                  mouseLeaveDelay={0.01}
                   align={{
                     ignoreShake: true,
                     offset: [0, 8],
                   }}
                   content={<Overlay routes={renderItemProps.routes} />}
                 >
-                  <div>{defaultDom}</div>
+                  <div className={`${prefixCls}-menu-popover-box`}>
+                    {defaultDom}
+                  </div>
                 </Popover>
               ) : (
                 <Link to={renderItemProps.path!}>{defaultDom}</Link>

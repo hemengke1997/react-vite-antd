@@ -1,12 +1,8 @@
+import React from 'react';
 import { WithFalse } from './typings';
 
 export type ContentWidth = 'Fluid' | 'Fixed';
 
-export type RenderSetting = {
-  headerRender?: false;
-  menuRender?: false;
-  menuHeaderRender?: false;
-};
 export type PureSettings = {
   /** @name customize header height */
   headerHeight?: number;
@@ -34,20 +30,7 @@ export type PureSettings = {
    * 注意：如果需要图标多色，Iconfont 图标项目里要进行批量去色处理 Usage: https://github.com/ant-design/ant-design-pro/pull/3517
    */
   iconfontUrl?: string;
+  logo?: string | React.ReactNode;
 };
 
-export type ProSettings = PureSettings & RenderSetting;
-
-const defaultSettings: ProSettings = {
-  contentWidth: 'Fluid',
-  fixedHeader: true,
-  fixSiderbar: true,
-  headerHeight: 64,
-  title: '网站title',
-  iconfontUrl: '',
-  menu: {
-    autoClose: false,
-    ignoreFlatMenu: true,
-  },
-};
-export default defaultSettings;
+export type ProSettings = PureSettings;

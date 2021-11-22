@@ -48,12 +48,17 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       proxy: createProxy(),
     },
     build: {
+      target: 'es2015',
       terserOptions: {
         compress: {
           keep_infinity: true,
           drop_console: mode === 'build',
         },
       },
+      // Turning off brotliSize display can slightly reduce packaging time
+      brotliSize: false,
+      chunkSizeWarningLimit: 2000,
+      sourcemap: false,
     },
     define: {
       __APP_INFO__: JSON.stringify(__APP_INFO__),

@@ -9,7 +9,6 @@ export type InitialStateType = {
 
 function useGlobalContext() {
   useEffect(() => {
-    console.log('global');
     // 请求
   }, []);
 

@@ -4,8 +4,8 @@ import TablePlus, { ProColumns, ProTableProps } from './TablePlus';
 import { useNProgress } from '@tanem/react-nprogress';
 import ReactDOM from 'react-dom';
 import styles from './index.module.less';
-import defaultSettings from '@/layouts/ProLayout/defaultSettings';
 import { Table } from 'antd';
+import { defaultSettings } from '@/utils/setting';
 
 type ProTableComponentType = {
   /** @name 表头是否可拖拽 */
