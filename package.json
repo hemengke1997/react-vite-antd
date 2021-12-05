@@ -12,7 +12,8 @@
     "lint:style": "stylelint --cache --fix \"**/*.{less,postcss,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
     "clean:cache": "rimraf node_modules/.cache/ && rimraf node_modules/.vite",
     "postinstall": "husky install",
-    "upgrade:deps": "yarn upgrade-interactive --latest"
+    "upgrade:deps": "yarn upgrade-interactive --latest",
+    "prepush": ""
   },
   "lint-staged": {
     "**/*.less": "npm run lint:style",
