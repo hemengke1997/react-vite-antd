@@ -1,7 +1,7 @@
 import ProDrawer from '../ProDrawer';
 import { ColorChangeHandler, SketchPicker } from 'react-color';
 import { useEffect, useState } from 'react';
-import { Button, ConfigProvider, Divider } from 'antd';
+import { Button, ConfigProvider, Divider, message } from 'antd';
 import { themeName, theme as defaultTheme } from '@/utils/setting';
 import type { Theme } from 'antd/es/config-provider/context';
 import useMountControlledState from '@/hooks/useMountControlledState';
@@ -9,22 +9,20 @@ import styles from './index.module.less';
 
 type ThemeCompProps = {
   title: string;
-  defaultColor?: string;
+  name: string;
+  color: string;
   onColorChange: (c: string) => void;
 };
 
 const ThemeComp: React.FC<ThemeCompProps> = (props) => {
-  const { title, defaultColor, onColorChange } = props;
+  const { title, color: propColor, onColorChange, name } = props;
 
   const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
 
-  const [color, setColor] = useMountControlledState<string>(
-    defaultColor || '',
-    {
-      defaultValue: defaultColor,
-      onChange: onColorChange,
-    },
-  );
+  const [color, setColor] = useMountControlledState<string>('', {
+    value: propColor,
+    onChange: onColorChange,
+  });
 
   const handleClose = () => {
     setDisplayColorPicker(false);
@@ -36,6 +34,25 @@ const ThemeComp: React.FC<ThemeCompProps> = (props) => {
 
   const handleChange: ColorChangeHandler = (c) => {
     setColor(c.hex);
+
+    const msg = `这是${title}`;
+
+    switch (name as keyof Theme) {
+      case 'successColor':
+        message.success(msg);
+        break;
+      case 'errorColor':
+        message.error(msg);
+        break;
+      case 'infoColor':
+        message.info(msg);
+        break;
+      case 'warningColor':
+        message.warning(msg);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -82,7 +99,7 @@ const ThemeComp: React.FC<ThemeCompProps> = (props) => {
 const ThemeSetting: React.FC<Feedback.FeedbackProps> = (props) => {
   const { visible, setVisible } = props;
 
-  const [themeList, setThemeList] = useState<ThemeCompProps[]>();
+  const [themeList, setThemeList] = useState<ThemeCompProps[]>([]);
 
   const getTheme = () => {
     return JSON.parse(localStorage.getItem(themeName) || '{}');
@@ -104,6 +121,14 @@ const ThemeSetting: React.FC<Feedback.FeedbackProps> = (props) => {
         ...prevColors,
         ...color,
       },
+    });
+
+    setThemeList((list) => {
+      const i = list.findIndex((item) => item.name === Object.keys(color)[0]);
+      if (i > -1) {
+        list[i].color = color[Object.keys(color)[0]];
+      }
+      return [...list];
     });
   };
 
@@ -131,8 +156,9 @@ const ThemeSetting: React.FC<Feedback.FeedbackProps> = (props) => {
     const t = titleList.map((item) => {
       const color = Object.keys(item)[0];
       return {
+        name: color,
         title: item[color],
-        defaultColor: defaultColors[color],
+        color: defaultColors[color],
         onColorChange: (c: string) => setTheme({ [color]: c }),
       };
     });
