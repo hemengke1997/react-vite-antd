@@ -8,7 +8,6 @@ import { joinTimestamp, formatRequestDate } from './helper';
 import { isObject, isString } from 'lodash-es';
 import { OriginResult, RequestOptions } from './axiosType';
 import { notification, message as antdMessage } from 'antd';
-import memoryConfig from '@/utils/memoryConfig';
 import setXYZ from './setXYZ';
 
 /**
@@ -87,7 +86,7 @@ const transform: AxiosTransform = {
       message === ResultEnum.NotLoginText ||
       code === ResultEnum.NotLoginCode
     ) {
-      window.location.href = memoryConfig.loginUrl;
+      // 没有登陆的情况
       return;
     }
 

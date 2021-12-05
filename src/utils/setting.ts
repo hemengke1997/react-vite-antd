@@ -28,5 +28,5 @@ export const defaultSettings: ProSettings = {
   menu: {
     autoClose: false,
   },
-  logo: '/src/assets/logo.svg',
+  logo: '/logo.svg',
 };

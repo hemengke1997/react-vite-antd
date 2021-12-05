@@ -6,7 +6,7 @@ export const BASE_URL = {
   release: '/release',
 };
 // 开发host
-export const HOST = 'dev.e.newrank.cn';
+export const HOST = '127.0.0.1';
 // 开发端口
 export const PORT = 1314;
 // 基本路径
